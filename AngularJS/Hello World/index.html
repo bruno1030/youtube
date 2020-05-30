@@ -1,0 +1,18 @@
+<html ng-app="helloWorld">
+<head>
+	<title>Hello World</title>
+	<script src="angular.js"></script>
+	<script>
+		angular.module("helloWorld", []);        // aqui eu criei o modulo com nome helloWorld
+		angular.module("helloWorld").controller("helloWorldCtrl", function ($scope){        // o scope foi injetado dentro do meu controller, e sera minha porta de entrada para a view
+			$scope.message = "Hello World!";
+		});
+	</script>
+</head>
+<body>
+	<div  ng-controller="helloWorldCtrl">
+		{{message}}
+	</div>
+
+</body>
+</html>
