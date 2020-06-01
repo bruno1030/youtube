@@ -16,6 +16,12 @@
       .form-control{
         margin-bottom: 5px;
       }
+      .selecionado{
+        background-color: yellow;
+      }
+      .negrito{
+        font-weight: bold;
+      }
     </style>
     <script src="lib/angular/angular.js"></script>
     <script>
@@ -47,13 +53,16 @@
       <!-- <h4 ng-bind="app"></h4>     // essa eh uma forma de imprimir na tela, com ng-bind -->
       <h3>{{app}}</h3>          <!-- essa eh uma outra forma de fazer, com a interpolacao da expressao -->
 
-      <table class="table table-striped">
+      {{contatos}}
+      <table class="table">
         <tr>
+          <th></th>
           <th>Nome</th>
           <th>Telefone</th>
           <th>Operadora</th>
         </tr>
-         <tr ng-repeat="contato in contatos">
+         <tr ng-class="{'selecionado negrito': contato.selecttt}" ng-repeat="contato in contatos">       <!-- ali dentro das chaves quer dizer que as classes de estilo "selecionado" e "negrito" soh serao aplicadas quando contato.selecttt for true, ou seja, quando estiver selecionado -->
+          <td> <input type="checkbox" ng-model="contato.selecttt"> </td>
           <td>{{contato.nome}}</td>                       <!--   <td ng-repeat="(key,value) in contato"> -->
           <td>{{contato.telefone}}</td>                   <!-- {{key + ' - ' + value}} -->
           <td>{{contato.operadora.nome}}</td>
