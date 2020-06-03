@@ -45,6 +45,16 @@
           delete $scope.contato;              <!-- esse delete vai servir pra apagar campo ao final do evento -->
           console.log(contato.nome);          <!-- aqui eh soh um teste de impressao no console -->
         };
+        $scope.apagarContatos = function (contatos) {
+            $scope.contatos = contatos.filter(function (contato) {
+              if (!contato.selecttt) return contato;
+            });
+          };
+        $scope.isContatoSelecionado = function(contatos){
+          var isContatoSelecionado = contatos.some(function (contato){      //some eh true
+            return contato.selecttt;
+          });
+        };
       });
     </script>
   </head>
@@ -76,6 +86,7 @@
         <option value="">Selecione uma operadora</option>
       </select>
       <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+      <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="isContatoSelecionado(contatos)">Apagar Contatos</button>
     </div>
   </body>
 </html>
