@@ -17,7 +17,7 @@
         margin-bottom: 5px;
       }
       .selecionado{
-        background-color: yellow;
+        background-color: olive;
       }
       .negrito{
         font-weight: bold;
@@ -29,9 +29,9 @@
       angular.module("listaTelefonica").controller("listaTelefonicaController", function($scope){
         $scope.app = "Lista Telefonica";
         $scope.contatos = [
-          {nome: "Pedro", telefone: "999999999"},
-          {nome: "Ana", telefone: "555555555"},
-          {nome: "Maria", telefone: "222222222"}
+          {nome: "Pedro", telefone: "999999999", cor: "blue"},
+          {nome: "Ana", telefone: "555555555", cor: "yellow"},
+          {nome: "Maria", telefone: "222222222", cor: "red"}
         ];
         $scope.operadoras = [
           {nome: "Oi", codigo: "14", categoria: "Celular"},
@@ -51,7 +51,7 @@
             });
           };
         $scope.isContatoSelecionado = function(contatos){
-          var isContatoSelecionado = contatos.some(function (contato){      //some eh true
+          return contatos.some(function (contato){      //some eh true
             return contato.selecttt;
           });
         };
@@ -63,20 +63,22 @@
       <!-- <h4 ng-bind="app"></h4>     // essa eh uma forma de imprimir na tela, com ng-bind -->
       <h3>{{app}}</h3>          <!-- essa eh uma outra forma de fazer, com a interpolacao da expressao -->
 
-      {{contatos}}
-      <table class="table">
+      <!-- {{contatos}} -->
+      <table class="table" ng-show="contatos.length  > 0">
         <tr>
           <th></th>
           <th>Nome</th>
           <th>Telefone</th>
           <th>Operadora</th>
+          <th></th>
         </tr>
          <tr ng-class="{'selecionado negrito': contato.selecttt}" ng-repeat="contato in contatos">       <!-- ali dentro das chaves quer dizer que as classes de estilo "selecionado" e "negrito" soh serao aplicadas quando contato.selecttt for true, ou seja, quando estiver selecionado -->
           <td> <input type="checkbox" ng-model="contato.selecttt"> </td>
-          <td>{{contato.nome}}</td>                       <!--   <td ng-repeat="(key,value) in contato"> -->
-          <td>{{contato.telefone}}</td>                   <!-- {{key + ' - ' + value}} -->
+          <td>{{contato.nome}}</td>
+          <td>{{contato.telefone}}</td>
           <td>{{contato.operadora.nome}}</td>
-        </tr>                                          <!-- </td> -->
+          <td><div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div></td>
+        </tr>
       </table>
       <hr/>
       <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
@@ -86,7 +88,8 @@
         <option value="">Selecione uma operadora</option>
       </select>
       <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
-      <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="isContatoSelecionado(contatos)">Apagar Contatos</button>
+      <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-hide="!isContatoSelecionado(contatos)">Apagar Contatos</button>
     </div>
+     <div ng-include="'footer.html'"></div>       <!--  essas aspas simples de dentro servem para escapar, senao ele ia buscar esse footer.html como sendo uma variavel, uma propriedade dentro do meu $scope -->
   </body>
 </html>
