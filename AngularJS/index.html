@@ -76,9 +76,9 @@
         </tr>
          <tr ng-class="{'selecionado negrito': contato.selecttt}" ng-repeat="contato in contatos">       <!-- ali dentro das chaves quer dizer que as classes de estilo "selecionado" e "negrito" soh serao aplicadas quando contato.selecttt for true, ou seja, quando estiver selecionado -->
           <td> <input type="checkbox" ng-model="contato.selecttt"> </td>
-          <td>{{contato.nome}}</td>
+          <td>{{contato.nome | uppercase}}</td>
           <td>{{contato.telefone}}</td>
-          <td>{{contato.operadora.nome}}</td>
+          <td>{{contato.operadora.nome | lowercase}}</td>
           <td><div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div></td>
         </tr>
       </table>
